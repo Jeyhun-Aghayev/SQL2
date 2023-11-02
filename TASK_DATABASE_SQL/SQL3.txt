@@ -1,0 +1,33 @@
+	--Users cədvəli :
+	-- - Username
+	-- - Password
+	--Roles cədvəli :
+	-- - Name
+	--Users cədvəli ilə Roles cədvəli arasında relation qurun.
+	--Hər userin 1 rolu ola bilər.(Misal: Admin, Moderator ve s.)
+
+	--Usersleri rollari ile bir yerde cixaran sorgu yazin
+
+	CREATE DATABASE RELATİON
+	USE RELATİON
+
+	CREATE TABLE USERS(
+	ID INT PRIMARY KEY IDENTITY,
+	USERNAME VARCHAR(20),
+	[PASSWORD] VARCHAR(16) CHECK (LEN([PASSWORD]) >=8)
+	);	
+	CREATE TABLE ROLES(
+	ID INT PRIMARY KEY IDENTITY,
+	[NAME] NVARCHAR(8) CHECK( NAME IN ('ADMIN','EMPLOYE','DIRECTOR'))
+	);
+CREATE TABLE USERROLES (
+    USERID INT,
+    ROLEID INT,
+    PRIMARY KEY (USERID, ROLEID),
+    FOREIGN KEY (USERID) REFERENCES USERS(ID),
+    FOREIGN KEY (ROLEID) REFERENCES ROLES(ID)
+);
+SELECT U.USERNAME, R.NAME
+FROM USERS U
+JOIN USERROLES UR ON U.ID = UR.USERID
+JOIN ROLES R ON UR.ROLEID = R.ID;
